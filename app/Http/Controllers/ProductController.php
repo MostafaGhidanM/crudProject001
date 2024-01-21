@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //Mostafa
+        /* Mostafa
         $request->validate ([
             'productName' => 'required | string | max:255',
             'productPrice' => 'required | decimal:2',
@@ -38,8 +38,15 @@ class ProductController extends Controller
         ]);
         Product::create($request->all());
         return redirect()->route('products.index');
-        //Mostafa
-
+        */
+        $request->validate ([
+            'productName' => 'required | string | max:255',
+            'productPrice' => 'required | decimal:2',
+            'productDescription' => 'required | string',
+            'productProducer' => 'required | string',
+        ]);
+        Product::create($request->all());
+        return redirect()->route('products.index')->with('success','Prouct has been added successfully');
     }
     /**
      * Display the specified resource.
@@ -54,7 +61,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('products.edit',compact('product'));
     }
 
     /**
@@ -62,7 +69,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate ([
+            'productName' => 'required | string | max:255',
+            'productPrice' => 'required | decimal:2',
+            'productDescription' => 'required | string',
+            'productProducer' => 'required | string',
+        ]);
+        $product->update($request->all());
+        return redirect()->route('products.index')->with('success','Product has been updated successfully');
+
     }
 
     /**
