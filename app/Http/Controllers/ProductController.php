@@ -40,11 +40,15 @@ class ProductController extends Controller
         return redirect()->route('products.index');
         */
         $request->validate ([
-            'productName' => 'required | string | max:255',
-            'productPrice' => 'required | decimal:2',
+            'productName' => 'required | unique:products| string | max:255',
+            'productPrice' => 'required | numeric | min:0 | not_in:0',
             'productDescription' => 'required | string',
             'productProducer' => 'required | string',
-        ]);
+        ],
+        [
+            'productName' => 'يجب إدخال اسم المنتج'
+        ]
+        );
         Product::create($request->all());
         return redirect()->route('products.index')->with('success','Prouct has been added successfully');
     }
@@ -70,13 +74,13 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate ([
-            'productName' => 'required | string | max:255',
-            'productPrice' => 'required | decimal:2',
+            'productName' => 'required | unique:products,productName,'.$product->id,
+            'productPrice' => 'required | numeric',
             'productDescription' => 'required | string',
             'productProducer' => 'required | string',
         ]);
         $product->update($request->all());
-        return redirect()->route('products.index')->with('success','Product has been updated successfully');
+        return redirect()->route('products.index')->with('success','Product has been updated');
 
     }
 
