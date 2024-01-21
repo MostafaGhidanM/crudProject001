@@ -29,8 +29,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-    }
+        //Mostafa
+        $request->validate ([
+            'productName' => 'required | string | max:255',
+            'productPrice' => 'required | decimal:2',
+            'productDescription' => 'required | string',
+            'productProducer' => 'required | string',
+        ]);
+        Product::create($request->all());
+        return redirect()->route('products.index');
+        //Mostafa
 
+    }
     /**
      * Display the specified resource.
      */

@@ -30,25 +30,25 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Product Name:</strong>
-                <input type="text" name="productName" class="form-control" placeholder="Product Name">
+                <input type="text" name="productName" class="form-control" placeholder="Product Name" value="{{ old('productName') }}">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Product Price:</strong>
-                <input type="number" class="form-control" name="productPrice" placeholder="Product Price">
+                <input type="decimal" class="form-control" name="productPrice" placeholder="Product Price" value="{{ old('productPrice') }}">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Product Description:</strong>
-                <textarea name="productDescription" cols="30" rows="3" class="form-control" placeholder="Product Description"></textarea>
+                <textarea name="productDescription" cols="30" rows="3" class="form-control" placeholder="Product Description">{{ old('productDescription') }}</textarea>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Product Producer:</strong>
-                <input type="text" class="form-control" name="productproducer" placeholder="Product Producer">
+                <input type="text" class="form-control" name="productProducer" placeholder="Product Producer" value="{{ old('productProducer') }}">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
