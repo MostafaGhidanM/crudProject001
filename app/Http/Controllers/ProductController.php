@@ -29,27 +29,33 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        /* Mostafa
-        $request->validate ([
-            'productName' => 'required | string | max:255',
-            'productPrice' => 'required | decimal:2',
-            'productDescription' => 'required | string',
-            'productProducer' => 'required | string',
-        ]);
-        Product::create($request->all());
-        return redirect()->route('products.index');
-        */
         $request->validate ([
             'productName' => 'required | unique:products| string | max:255',
             'productPrice' => 'required | numeric | min:0 | not_in:0',
             'productDescription' => 'required | string',
             'productProducer' => 'required | string',
+            'photo' => 'required | mimes:jpg,jpeg,png'
         ],
         [
             'productName' => 'يجب إدخال اسم المنتج'
         ]
         );
-        Product::create($request->all());
+        // upload to public folder
+        $photo = $request->file('photo');
+        $storedPhotoName = time() . $photo->getClientOriginalName();
+        $request->$photo = $storedPhotoName;
+        $photo->move(public_path('productPhotos'),$storedPhotoName);
+
+        //Product::create($request->all());
+        $product = new Product();
+        $product->productName = $request->productName;
+        $product->productPrice = $request->productPrice;
+        $product->productProducer = $request->productProducer;
+        $product->productDescription = $request->productDescription;
+        $product->photo = $storedPhotoName;
+
+        $product->save();
+
         return redirect()->route('products.index')->with('success','Prouct has been added successfully');
     }
     /**
